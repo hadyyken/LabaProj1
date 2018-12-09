@@ -57,4 +57,37 @@ class Bakery extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_bakery' => 'id']);
     }
+
+    /**
+     * Вывести всю выпечку дешевле 200р
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function getBakery()
+    {
+        $sql = "select * from Bakery";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    /**
+     * Вывести всю выпечку дешевле 200р
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function createBakery($type, $price, $shelfLife)
+    {
+        Yii::$app->db->createCommand()
+            ->insert('Bakery', array(
+                'type' => $type,
+                'price' => $price,
+                'shelfLife' => $shelfLife,
+            ));
+    }
+
+    public function deleteBakery($id)
+    {
+        $sql = "DELETE FROM Bakery WHERE id = $id";
+        Yii::$app->db->createCommand($sql)->queryAll();
+    }
 }

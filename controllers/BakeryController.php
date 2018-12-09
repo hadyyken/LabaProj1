@@ -32,6 +32,7 @@ class BakeryController extends Controller
     /**
      * Lists all Bakery models.
      * @return mixed
+     * @throws \yii\db\Exception
      */
     public function actionIndex()
     {
@@ -76,6 +77,34 @@ class BakeryController extends Controller
     }
 
     /**
+     * @throws \yii\db\Exception
+     */
+    public function createBakery()
+    {
+        $type = $_POST['type'];
+        $price = $_POST['price'];
+        $shelfLife = $_POST['shelfLife'];
+
+        $model = new Bakery();
+
+        $model->createBakery($type, $price, $shelfLife);
+
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    public function actionBakery()
+    {
+        $model = new Bakery();
+
+        $sqlData = $model->getBakery();
+
+        return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+
+    }
+
+    /**
      * Updates an existing Bakery model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -107,6 +136,12 @@ class BakeryController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleted($id)
+    {
+        $model = new Bakery();
+        $model->deleteBakery($id);
     }
 
     /**
