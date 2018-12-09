@@ -123,6 +123,12 @@ class BakeryController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdated($id, $type, $price, $shelfLife)
+    {
+        $model = new Bakery();
+        $model->updateBakery($id,$type, $price, $shelfLife);
+    }
+
 
     /**
      * Deletes an existing Bakery model.

@@ -90,4 +90,13 @@ class Bakery extends \yii\db\ActiveRecord
         $sql = "DELETE FROM Bakery WHERE id = $id";
         Yii::$app->db->createCommand($sql)->queryAll();
     }
+
+    public function updateBakery($id, $type, $price, $shelfLife)
+    {
+      Yii::$app->db->createCommand()->update('Bakery', array(
+            'type' => $type,
+            'price' => $price,
+            'shelfLife' => $shelfLife,
+        ), 'id=:id', array(':id' => $id));
+    }
 }
