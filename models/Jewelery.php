@@ -62,4 +62,56 @@ class Jewelery extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_jewelery' => 'id']);
     }
+
+    /**
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function getJewelery()
+    {
+        $sql = "select * from Jewelery";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    /**
+     * Вывести всю выпечку дешевле 200р
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function createJewelery($type, $material, $edibility, $price, $size)
+    {
+        Yii::$app->db->createCommand()
+            ->insert('Bakery', array(
+                'type' => $type,
+                'material' => $material,
+                'edibility' => $edibility,
+                'price' => $price,
+                'size' => $size,
+            ));
+    }
+
+
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
+
+
+    public function deleteJewelery($id)
+    {
+        $sql = "DELETE FROM Jewelery WHERE id = $id";
+        Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function updateJewelery($id, $type, $material, $edibility, $price, $size)
+    {
+        Yii::$app->db->createCommand()->update('Bakery', array(
+            'type' => $type,
+            'material' => $material,
+            'edibility' => $edibility,
+            'price' => $price,
+            'size' => $size,
+        ), 'id=:id', array(':id' => $id));
+    }
 }

@@ -74,6 +74,29 @@ class JeweleryController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionJewelery()
+    {
+        $model = new Jewelery();
+
+        $sqlData = $model->getJewelery();
+
+        return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+
+    }
+    public function createBakery()
+    {
+        $type = $_POST['type'];
+        $material = $_POST['material'];
+        $edibility = $_POST ['edibility'];
+        $price = $_POST['price'];
+        $size = $_POST ['size'];
+
+
+        $model = new Bakery();
+
+        $model->createJewelery($type, $material, $edibility, $price, $size);
+
+    }
 
     /**
      * Updates an existing Jewelery model.
@@ -94,6 +117,12 @@ class JeweleryController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdated($id, $type, $material, $edibility, $price, $size)
+    {
+        $model = new Jewelery();
+        $model->updateJewelery($id, $type, $material, $edibility, $price, $size);
+    }
+
 
     /**
      * Deletes an existing Jewelery model.
@@ -107,6 +136,15 @@ class JeweleryController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     */
+    public function actionDeleted($id)
+    {
+        $model = new Jewelery();
+        $model->deleteJewelery($id);
     }
 
     /**
