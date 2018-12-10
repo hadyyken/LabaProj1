@@ -75,6 +75,28 @@ class TreesController extends Controller
         ]);
     }
 
+    public function actionTrees()
+    {
+        $model = new Trees();
+
+        $sqlData = $model->getTrees();
+
+        return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+    }
+
+    public function createTrees()
+    {
+        $variety = $_POST['variety'];
+        $size = $_POST ['size'];
+        $age = $_POST['age'];
+        $price = $_POST['price'];
+
+        $model = new Trees();
+
+        $model->createTrees($variety, $size, $age, $price);
+
+    }
+
     /**
      * Updates an existing Trees model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -95,6 +117,12 @@ class TreesController extends Controller
         ]);
     }
 
+    public function actionUpdated($id, $variety, $size, $age, $price)
+    {
+        $model = new Trees();
+        $model->updateTrees($id, $variety, $size, $age, $price);
+    }
+
     /**
      * Deletes an existing Trees model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -107,6 +135,11 @@ class TreesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    public function actionDeleted($id)
+    {
+        $model = new Trees();
+        $model->deleteTrees($id);
     }
 
     /**

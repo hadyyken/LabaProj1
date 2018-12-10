@@ -75,6 +75,27 @@ class PresentsController extends Controller
         ]);
     }
 
+    public function actionJewelery()
+    {
+        $model = new Presents();
+
+        $sqlData = $model->getPresents();
+
+        return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+    }
+    public function createPresents()
+    {
+        $type = $_POST['type'];
+        $size = $_POST ['size'];
+        $price = $_POST['price'];
+        $fragility = $_POST['fragility'];
+
+        $model = new Presents();
+
+        $model->createJewelery($type, $size, $price, $fragility );
+
+    }
+
     /**
      * Updates an existing Presents model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -94,6 +115,11 @@ class PresentsController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdated($id, $type, $size, $price, $fragility)
+    {
+        $model = new Presents();
+        $model->updatePresents($id, $type, $size, $price, $fragility);
+    }
 
     /**
      * Deletes an existing Presents model.
@@ -107,6 +133,11 @@ class PresentsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    public function actionDeleted($id)
+    {
+        $model = new Presents();
+        $model->deletePresents($id);
     }
 
     /**

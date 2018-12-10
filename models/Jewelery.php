@@ -82,7 +82,7 @@ class Jewelery extends \yii\db\ActiveRecord
     public function createJewelery($type, $material, $edibility, $price, $size)
     {
         Yii::$app->db->createCommand()
-            ->insert('Bakery', array(
+            ->insert('Jewelery', array(
                 'type' => $type,
                 'material' => $material,
                 'edibility' => $edibility,
@@ -106,7 +106,7 @@ class Jewelery extends \yii\db\ActiveRecord
 
     public function updateJewelery($id, $type, $material, $edibility, $price, $size)
     {
-        Yii::$app->db->createCommand()->update('Bakery', array(
+        Yii::$app->db->createCommand()->update('Presents', array(
             'type' => $type,
             'material' => $material,
             'edibility' => $edibility,

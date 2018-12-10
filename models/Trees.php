@@ -59,4 +59,49 @@ class Trees extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_trees' => 'id']);
     }
+    public function getTrees()
+    {
+        $sql = "select * from Trees";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    /**
+
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function createTrees($variety, $size, $age, $price )
+    {
+        Yii::$app->db->createCommand()
+            ->insert('Trees', array(
+                'variety' => $variety,
+                'size' => $size,
+                'age' => $age,
+                'price' => $price,
+            ));
+    }
+
+
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
+
+
+    public function deleteTrees($id)
+    {
+        $sql = "DELETE FROM Trees WHERE id = $id";
+        Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function updateTrees($id, $variety, $size, $age, $price)
+    {
+        Yii::$app->db->createCommand()->update('Trees', array(
+            'variety' => $variety,
+            'size' => $size,
+            'age' => $age,
+            'price' => $price,
+        ), 'id=:id', array(':id' => $id));
+    }
 }

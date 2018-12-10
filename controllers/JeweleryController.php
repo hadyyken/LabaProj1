@@ -83,7 +83,7 @@ class JeweleryController extends Controller
         return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
 
     }
-    public function createBakery()
+    public function createJewelery()
     {
         $type = $_POST['type'];
         $material = $_POST['material'];
@@ -92,7 +92,7 @@ class JeweleryController extends Controller
         $size = $_POST ['size'];
 
 
-        $model = new Bakery();
+        $model = new Jewelery();
 
         $model->createJewelery($type, $material, $edibility, $price, $size);
 

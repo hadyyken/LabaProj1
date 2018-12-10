@@ -74,6 +74,28 @@ class UsersController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUsers()
+    {
+        $model = new Users();
+
+        $sqlData = $model->getUsers();
+
+        return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+    }
+
+    public function createUsers()
+    {
+        $name = $_POST['name'];
+        $surname = $_POST ['surname'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];
+
+        $model = new Users();
+
+        $model->createUsers($name, $surname, $email, $phone, $address);
+
+    }
 
     /**
      * Updates an existing Users model.
@@ -94,6 +116,11 @@ class UsersController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdated($id, $name, $surname, $email, $phone, $address)
+    {
+        $model = new Users();
+        $model->updateUsers($id,$name, $surname, $email, $phone, $address);
+    }
 
     /**
      * Deletes an existing Users model.
@@ -107,6 +134,11 @@ class UsersController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    public function actionDeleted($id)
+    {
+        $model = new Users();
+        $model->deleteUsers($id);
     }
 
     /**

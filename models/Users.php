@@ -61,4 +61,51 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_user' => 'id']);
     }
+    public function getUsers()
+    {
+        $sql = "select * from Users";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    /**
+
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function createUsers($name, $surname, $email, $phone, $address )
+    {
+        Yii::$app->db->createCommand()
+            ->insert('Users', array(
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $address,
+            ));
+    }
+
+
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
+
+
+    public function deleteUsers($id)
+    {
+        $sql = "DELETE FROM Users WHERE id = $id";
+        Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function updateUsers($id, $name, $surname, $email, $phone, $address)
+    {
+        Yii::$app->db->createCommand()->update('Users', array(
+            'name' => $name,
+            'surname' => $surname,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+        ), 'id=:id', array(':id' => $id));
+    }
 }

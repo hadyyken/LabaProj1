@@ -59,4 +59,49 @@ class Presents extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_presents' => 'id']);
     }
+    public function getPresents()
+    {
+        $sql = "select * from Presents";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    /**
+     * Вывести всю выпечку дешевле 200р
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function createPresents($type, $size, $price, $fragility )
+    {
+        Yii::$app->db->createCommand()
+            ->insert('Presents', array(
+                'type' => $type,
+                'size' => $size,
+                'price' => $price,
+                'fragility' => $fragility,
+            ));
+    }
+
+
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
+
+
+    public function deletePresents($id)
+    {
+        $sql = "DELETE FROM Presents WHERE id = $id";
+        Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function updatePresents($id, $type, $size, $price, $fragility)
+    {
+        Yii::$app->db->createCommand()->update('Presents', array(
+            'type' => $type,
+            'size' => $size,
+            'price' => $price,
+            'fragility' => $fragility,
+        ), 'id=:id', array(':id' => $id));
+    }
 }
