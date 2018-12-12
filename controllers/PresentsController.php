@@ -92,8 +92,13 @@ class PresentsController extends Controller
 
         $model = new Presents();
 
-        $model->createJewelery($type, $size, $price, $fragility );
+        $model->createPresents($type, $size, $price, $fragility );
 
+    }
+    public function  actionPr($type, $size, $price, $fragility)
+    {
+        $model = new Presents();
+        $model->createPr( $type, $size, $price, $fragility);
     }
 
     /**
@@ -134,6 +139,11 @@ class PresentsController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
     public function actionDeleted($id)
     {
         $model = new Presents();

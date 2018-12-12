@@ -144,6 +144,9 @@ class BakeryController extends Controller
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     */
     public function actionDeleted($id)
     {
         $model = new Bakery();

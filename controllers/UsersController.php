@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use phpDocumentor\Reflection\DocBlock\Tags\Method;
 use Yii;
 use app\models\Users;
 use app\models\UsersSearch;
@@ -74,6 +75,7 @@ class UsersController extends Controller
             'model' => $model,
         ]);
     }
+
     public function actionUsers()
     {
         $model = new Users();
@@ -83,15 +85,15 @@ class UsersController extends Controller
         return json_encode($sqlData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
     }
 
-    public function createUsers()
+    public function createUs()
     {
-        $name = $_POST['name'];
+
+        $model = new Users();
+        $name = ['name'];
         $surname = $_POST ['surname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];
-
-        $model = new Users();
 
         $model->createUsers($name, $surname, $email, $phone, $address);
 
@@ -116,10 +118,11 @@ class UsersController extends Controller
             'model' => $model,
         ]);
     }
+
     public function actionUpdated($id, $name, $surname, $email, $phone, $address)
     {
         $model = new Users();
-        $model->updateUsers($id,$name, $surname, $email, $phone, $address);
+        $model->updateUsers($id, $name, $surname, $email, $phone, $address);
     }
 
     /**
@@ -135,6 +138,7 @@ class UsersController extends Controller
 
         return $this->redirect(['index']);
     }
+
     public function actionDeleted($id)
     {
         $model = new Users();
@@ -155,5 +159,17 @@ class UsersController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionLogin()
+    {
+        if(!empty($_POST['submit']))
+        {
+            $phone=$_POST['phone'];
+            $email=$_POST['email'];
+            if(strlen(trim($phone))>1 && strlen(trim($email))>1)
+            {
+              Yii::$app->db->UserLogin($phone,$email);
+            }
+        }
     }
 }

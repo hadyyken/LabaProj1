@@ -59,6 +59,7 @@ class Presents extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_presents' => 'id']);
     }
+
     public function getPresents()
     {
         $sql = "select * from Presents";
@@ -71,7 +72,7 @@ class Presents extends \yii\db\ActiveRecord
      * @return array
      * @throws \yii\db\Exception
      */
-    public function createPresents($type, $size, $price, $fragility )
+    public function createPresents($type, $size, $price, $fragility)
     {
         Yii::$app->db->createCommand()
             ->insert('Presents', array(
@@ -82,13 +83,24 @@ class Presents extends \yii\db\ActiveRecord
             ));
     }
 
+    /**
+     * @param $type
+     * @param $size
+     * @param $price
+     * @param $fragility
+     * @throws \yii\db\Exception
+
+
 
     /**
      * @param $id
      * @throws \yii\db\Exception
      */
 
-
+    /**
+     * @param $id
+     * @throws \yii\db\Exception
+     */
     public function deletePresents($id)
     {
         $sql = "DELETE FROM Presents WHERE id = $id";

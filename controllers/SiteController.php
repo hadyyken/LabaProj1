@@ -61,12 +61,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $chislo = 1;
-        $stroka = 'testString';
+
+        $stroka = 'WELCOME TO MY WORLD';
 
         return $this->render('index',
             [
-                'chislo' => $chislo,
                 'stroka' => $stroka
             ]);
     }
